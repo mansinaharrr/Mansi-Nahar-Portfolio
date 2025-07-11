@@ -194,7 +194,7 @@ export default function Portfolio() {
         {/* Technical Grid SVG Top Left Corner (after hero, before tabs) */}
         <section className="relative w-full h-0">
           <svg className="absolute top-0 left-0 w-40 h-40 opacity-30 pointer-events-none" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g stroke={isDark ? '#F3E6B3' : '#000'} strokeWidth="1">
+            <g stroke={isDark ? '#F3E6B3' : '#000'} strokeWidth="1" className="grid-opacity-pulse">
               <line x1="0" y1="40" x2="160" y2="40"/>
               <line x1="0" y1="80" x2="160" y2="80"/>
               <line x1="0" y1="120" x2="160" y2="120"/>
@@ -440,7 +440,7 @@ export default function Portfolio() {
                              </div>
                            )}
                         </div>
-                        <p className="mt-8 text-xs text-gray-400">
+                        <p className={`mt-8 text-xs ${isDark ? 'text-gray-400' : 'text-black'}`}>
                           You can also reach me directly at <a href="mailto:mansinahar2020@gmail.com" className="underline">mansinahar2020@gmail.com</a> or call me at <a href="tel:+917200443602" className="underline">+91 7200443602</a>
                         </p>
                       </CardContent>
@@ -456,7 +456,7 @@ export default function Portfolio() {
         {/* Bottom Right Grid */}
         <section className="relative w-full h-0">
           <svg className="absolute bottom-0 right-0 w-40 h-40 opacity-30 pointer-events-none" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g stroke={isDark ? '#F3E6B3' : '#000'} strokeWidth="1">
+            <g stroke={isDark ? '#F3E6B3' : '#000'} strokeWidth="1" className="grid-opacity-pulse">
               <line x1="0" y1="40" x2="160" y2="40"/>
               <line x1="0" y1="80" x2="160" y2="80"/>
               <line x1="0" y1="120" x2="160" y2="120"/>
@@ -468,7 +468,7 @@ export default function Portfolio() {
             </g>
           </svg>
         </section>
-        <footer className="py-8 border-t border-gray-200 dark:border-gray-800 bg-gray-900 dark:bg-black">
+        <footer className="py-8 border-t border-gray-200 dark:border-gray-800 bg-black">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <p className="text-gray-300">© 2024 Mansi Nahar S. Crafted with passion and precision.</p>
           </div>
