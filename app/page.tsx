@@ -225,7 +225,7 @@ export default function Portfolio() {
           <div className="absolute inset-0 flex items-end justify-center pb-8 z-10">
             <div className="text-center">
               <h1
-                className="text-5xl md:text-6xl font-light tracking-widest text-[#F3E6B3] mb-2 drop-shadow-2xl text-center"
+                className="text-4xl md:text-5xl font-light tracking-widest text-[#F3E6B3] mb-2 drop-shadow-2xl text-center"
                 style={{ fontFamily: 'Playfair Display, Cormorant Garamond, serif' }}
               >
                 MANSI NAHAR S
@@ -239,7 +239,7 @@ export default function Portfolio() {
 
         {/* Overlay Section for Skills, Projects, Testimonials, Connect */}
         {activeOverlay && activeOverlay !== 'home' && (
-          <div key={activeOverlay} className="fixed inset-0 z-[100] flex flex-col bg-black/90 text-white animate-slide-in-left-to-right">
+          <div key={activeOverlay} className="fixed inset-0 z-[100] flex flex-col bg-black text-white animate-slide-in-left-to-right">
             {/* Hamburger always visible and on top */}
             <div className="fixed top-6 left-6 z-[9999]">
               <button
