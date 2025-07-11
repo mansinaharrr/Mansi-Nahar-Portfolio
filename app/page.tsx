@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { Moon, Sun, Github, Linkedin, Mail, ExternalLink, MessageCircle, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge"
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(true)
   const [activeTab, setActiveTab] = useState("skills")
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 })
 
   useEffect(() => {
     if (isDark) {
@@ -18,6 +20,17 @@ export default function Portfolio() {
       document.documentElement.classList.remove("dark")
     }
   }, [isDark])
+
+  useEffect(() => {
+    const idx = ["skills", "projects", "testimonials", "connect"].indexOf(activeTab)
+    const node = tabRefs.current[idx]
+    if (node) {
+      setUnderlineStyle({
+        left: node.offsetLeft,
+        width: node.offsetWidth
+      })
+    }
+  }, [activeTab])
 
   const skills = [
     "HTML",
@@ -198,29 +211,45 @@ export default function Portfolio() {
         <section className={`py-12 ${isDark ? 'bg-black' : 'bg-[#F3E6B3]'}`}>
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             {/* Tab Navigation */}
-            <div className="flex flex-wrap justify-center gap-2 mb-12">
+            <div className="flex flex-wrap justify-center gap-2 mb-12 relative" style={{ position: 'relative' }}>
               {[
                 { id: "skills", label: "Skills" },
                 { id: "projects", label: "Projects" },
                 { id: "testimonials", label: "Testimonials" },
                 { id: "connect", label: "Connect" },
-              ].map((tab) => (
+              ].map((tab, idx) => (
                 <button
                   key={tab.id}
+                  ref={el => { tabRefs.current[idx] = el; }}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-8 py-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
+                  className={`tab-btn px-8 py-4 rounded-lg font-medium transition-all duration-300 backdrop-blur-sm ${
                     activeTab === tab.id
-                      ? "bg-gray-800/80 text-white border border-gray-600"
-                      : "bg-black/20 text-gray-300 hover:text-white hover:bg-black/40"
+                      ? `${isDark ? 'text-white' : 'text-black'} border border-gray-600`
+                      : `bg-black/20 ${isDark ? 'text-gray-300 hover:text-white hover:bg-black/40' : 'text-black hover:text-black hover:bg-black/10'}`
                   }`}
+                  style={{ position: 'relative' }}
                 >
                   {tab.label}
                 </button>
               ))}
+              <div
+                className="tab-underline"
+                style={{
+                  left: underlineStyle.left,
+                  width: underlineStyle.width,
+                  position: 'absolute',
+                  bottom: 0,
+                  height: '3px',
+                  background: isDark ? 'rgba(255,230,165,1)' : '#000',
+                  borderRadius: '2px',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  zIndex: 1
+                }}
+              />
             </div>
 
             {/* Tab Content */}
-            <div className="min-h-[400px]">
+            <div key={activeTab} className="min-h-[400px] animate-fade-in-down">
               {/* Skills Tab */}
               {activeTab === "skills" && (
                 <div className="grid lg:grid-cols-2 gap-16 items-start">
@@ -411,6 +440,9 @@ export default function Portfolio() {
                              </div>
                            )}
                         </div>
+                        <p className="mt-8 text-xs text-gray-400">
+                          You can also reach me directly at <a href="mailto:mansinahar2020@gmail.com" className="underline">mansinahar2020@gmail.com</a> or call me at <a href="tel:+917200443602" className="underline">+91 7200443602</a>
+                        </p>
                       </CardContent>
                     </Card>
                   </div>
